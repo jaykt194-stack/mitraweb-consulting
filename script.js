@@ -3,7 +3,7 @@
   Replace the values below before publishing.
 */
 const MITRAWEB = {
-  email: "hello@mitraweb.com",
+  email: "support@mitrawebconsulting.net",
   whatsapp: "919999999999"
 };
 

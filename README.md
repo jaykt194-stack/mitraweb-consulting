@@ -1,38 +1,73 @@
-# MitraWeb Consulting Portfolio
+# MitraWeb Consulting — Advanced GitHub Pages Portfolio
 
-A modern, responsive static portfolio for **MitraWeb Consulting**.
+This version uses the supplied MitraWeb logo and WhatsApp number **8860498089**.
 
-## Files
+## Main feature: Project Lab / Sample Model Generator
 
-- `index.html` — page structure/content
-- `styles.css` — responsive UI and animations
-- `script.js` — menu, scroll animation, contact form and company contact settings
+Clients can:
+1. Select Website, Android App, E-commerce or Web App.
+2. Enter their business/project name.
+3. Enter their business category.
+4. Select features.
+5. Choose a visual direction.
+6. Describe their requirements.
+7. Generate a live sample model immediately.
+8. Send the generated project brief to MitraWeb on WhatsApp.
+9. Email the brief if they prefer.
 
-## Before publishing
+## Contact settings
 
-Open `script.js` and change:
+The contact details are near the top of the inline script in `index.html`:
 
 ```js
 const MITRAWEB = {
-  email: "your-real-email@example.com",
-  whatsapp: "91XXXXXXXXXX"
+  email: "hello@mitraweb.com",
+  whatsapp: "918860498089"
 };
 ```
 
-Replace the demo project names/content in `index.html` with your real projects.
+Change the email to your real business email.
 
-## Publish with GitHub Pages
+## Important: "AI prototype generation"
 
-1. Create a GitHub repository.
-2. Upload `index.html`, `styles.css`, `script.js` and this README.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select your main branch and `/ (root)`.
+This GitHub Pages version is a **front-end prototype generator**. It works without a server and is safe to publish as static GitHub Pages.
+
+If you want clients to type something like:
+
+> "I need an online school app where students can login, view courses, pay fees and download certificates"
+
+and have an AI create a much more detailed custom UI, page-by-page wireframe, feature specification, database plan and development estimate, add a small secure backend/API between this website and the AI model.
+
+Do NOT put a private AI API key directly in `index.html` or JavaScript on GitHub Pages.
+
+A recommended next version is:
+
+Client prompt → secure backend → AI → structured project specification → prototype renderer → WhatsApp/quotation.
+
+## GitHub Pages deployment
+
+1. Create a GitHub repository such as `mitraweb-consulting`.
+2. Upload:
+   - `index.html`
+   - `styles.css`
+   - `script.js`
+   - `mitraweb-logo.png`
+   - `README.md`
+3. Go to **Settings → Pages**.
+4. Choose **Deploy from a branch**.
+5. Select `main` and `/ (root)`.
 6. Save.
-7. GitHub will publish the site at your Pages URL.
 
-For a custom domain, configure it under **Settings → Pages → Custom domain** and then configure the required DNS record with your domain provider.
+## Recommended future additions
 
-## Important
-
-GitHub Pages is static hosting, so this demo contact form opens the visitor's email application. If you later want submissions stored in a database or sent without opening an email app, connect a form/backend service.
+- AI-powered requirement analysis
+- AI-generated page list and user flows
+- AI-generated UI themes
+- Downloadable PDF project proposal
+- Automatic quotation estimator
+- Client login/dashboard
+- Save generated prototypes
+- Admin dashboard for leads
+- Database for enquiries
+- Razorpay/Stripe payment for advance booking
+- Calendar scheduling

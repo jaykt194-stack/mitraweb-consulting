@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import { sendContactFormEmails } from "@/lib/mail";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, phone, company, projectType, budget, description, preferredMethod, honeypot } = body;
 
-    // Basic honeypot check to block bots
+    // Basic honeypot check to block automated spam bots
     if (honeypot) {
       return NextResponse.json({ success: true, message: "Submission received" }, { status: 200 });
     }
@@ -22,28 +23,36 @@ export async function POST(request: Request) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { success: false, error: "Please enter a valid email address." },
+        { success: false, error: "Please enter a valid work email address." },
         { status: 400 }
       );
     }
 
-    // Log internally (in production, this connects to Formspree, Resend, SendGrid, or SMTP)
-    console.log("[CONTACT_FORM_SUBMISSION]", {
+    // Dispatch real-time emails to working inbox and confirmation receipt to client
+    const mailResult = await sendContactFormEmails({
       name,
       email,
       phone,
       company,
       projectType,
       budget,
+      description,
       preferredMethod,
-      descriptionLength: description.length,
+    });
+
+    console.log("[CONTACT_FORM_DISPATCHED]", {
+      name,
+      email,
+      phone,
+      company,
+      mailResult,
       timestamp: new Date().toISOString(),
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: "Thank you for reaching out. An engineering consultant from Mitraweb will review your requirements and respond within 24 business hours.",
+        message: "Thank you for reaching out. Your enquiry has been received and a confirmation has been sent to your email. An engineering consultant will review your requirements and respond within 24 business hours.",
       },
       { status: 200 }
     );

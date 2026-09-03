@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendQuoteFormEmails } from "@/lib/mail";
 
 export async function POST(request: Request) {
   try {
@@ -33,24 +34,45 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("[QUOTE_REQUEST_SUBMITTED]", {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, error: "Please enter a valid work email address." },
+        { status: 400 }
+      );
+    }
+
+    // Dispatch real-time emails to owner inbox and confirmation to client
+    const mailResult = await sendQuoteFormEmails({
       name,
       email,
       phone,
       company,
-      industry,
-      projectType,
-      budget,
-      timeline,
-      featuresCount: Array.isArray(requiredFeatures) ? requiredFeatures.length : 0,
-      platforms: targetPlatforms,
+      website,
+      industry: industry || "Other",
+      projectType: projectType || "Custom Software Development",
+      targetPlatforms: Array.isArray(targetPlatforms) ? targetPlatforms : ["Web Application"],
+      requiredFeatures: Array.isArray(requiredFeatures) ? requiredFeatures : [],
+      budget: budget || "Not specified",
+      timeline: timeline || "Flexible",
+      currentTech,
+      description,
+      referralSource,
+    });
+
+    console.log("[QUOTE_REQUEST_DISPATCHED]", {
+      name,
+      email,
+      phone,
+      company,
+      mailResult,
       timestamp: new Date().toISOString(),
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: "Your project scope details have been submitted. An engineering lead will assemble a preliminary scope & architecture outline within 24-48 business hours.",
+        message: "Your project scope details have been submitted and a confirmation receipt has been sent to your email. An engineering lead will assemble a preliminary scope & architecture outline within 24-48 business hours.",
       },
       { status: 200 }
     );

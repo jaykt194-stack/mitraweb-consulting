@@ -2,6 +2,29 @@ import { PortfolioItem } from "@/types";
 
 export const portfolioData: PortfolioItem[] = [
   {
+    id: "eduex-school-college-lms",
+    slug: "school-college-management-lms",
+    title: "EduEx — School & College Management System and Comprehensive LMS",
+    clientIndustry: "Education & Institutional Academia",
+    category: "Education",
+    liveUrl: "https://eduex.mhquickdev.com/",
+    previewEmbedUrl: "https://eduex.mhquickdev.com/",
+    summary:
+      "A complete cloud-based educational ERP and Learning Management System (LMS) designed for schools, colleges, and training institutes featuring student admissions, digital classrooms, fee automation, and parent portals.",
+    challenge:
+      "Educational institutions struggle with fragmented administrative silos: manual student admission paperwork, unorganized offline fee registers, chaotic timetable scheduling, paper report cards, and lack of a cohesive digital learning environment for assignments and online testing.",
+    solution:
+      "Mitraweb Consulting engineered EduEx, an all-in-one institutional management and learning platform. Built with a responsive role-based architecture, it provides dedicated portals for administrators, faculty, students, and parents. Features automated online fee collection, dynamic timetable generation, student information system (SIS), gradebook automation, digital classroom assignments, attendance tracking, and parent communication channels.",
+    technologies: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS", "REST APIs", "AWS"],
+    results: [
+      "80% reduction in admission processing time and paper registration administrative overhead",
+      "Automated digital fee collection eliminated ledger discrepancies and banking reconciliation delays",
+      "100% real-time attendance and academic performance monitoring accessible to parents via portal",
+      "Robust high-concurrency LMS supporting interactive course content and online assessments",
+    ],
+    isFeatured: true,
+  },
+  {
     id: "diagnostic-chain-lims",
     slug: "diagnostic-chain-lims",
     title: "Multi-Center Diagnostic & Laboratory Information Management Platform",

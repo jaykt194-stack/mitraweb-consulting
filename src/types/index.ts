@@ -89,13 +89,15 @@ export interface PortfolioItem {
   slug: string;
   title: string;
   clientIndustry: string;
-  category: 'Web' | 'Mobile' | 'Custom Software' | 'E-commerce' | 'Automation' | 'Healthcare';
+  category: 'Web' | 'Mobile' | 'Custom Software' | 'E-commerce' | 'Automation' | 'Healthcare' | 'Education';
   summary: string;
   challenge: string;
   solution: string;
   technologies: string[];
   results: string[];
   isFeatured?: boolean;
+  liveUrl?: string;
+  previewEmbedUrl?: string;
 }
 
 export interface CaseStudyItem {

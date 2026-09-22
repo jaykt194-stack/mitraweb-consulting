@@ -13,7 +13,9 @@ import {
   Cpu,
   Layers,
   ShieldCheck,
+  ExternalLink,
 } from "lucide-react";
+import LivePreviewEmbed from "@/components/ui/LivePreviewEmbed";
 
 interface PortfolioDetailProps {
   params: {
@@ -73,6 +75,28 @@ export default function PortfolioDetailPage({ params }: PortfolioDetailProps) {
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl">
               {project.summary}
             </p>
+
+            {project.liveUrl && (
+              <div className="pt-3 flex flex-wrap items-center gap-3">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Launch Live Demo ({project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')})</span>
+                </a>
+                {project.previewEmbedUrl && (
+                  <a
+                    href="#live-preview"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-xs sm:text-sm transition-all"
+                  >
+                    <span>View Interactive Preview Below &darr;</span>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -121,10 +145,45 @@ export default function PortfolioDetailPage({ params }: PortfolioDetailProps) {
                   ))}
                 </div>
               </div>
+
+              {/* Interactive Live System Preview */}
+              {project.previewEmbedUrl && (
+                <div id="live-preview" className="pt-6 border-t border-slate-200/80">
+                  <LivePreviewEmbed url={project.previewEmbedUrl} title={project.title} />
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-4 space-y-6">
+              {/* Live Demo Highlight Card */}
+              {project.liveUrl && (
+                <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white rounded-2xl p-6 border border-blue-900/60 shadow-xl space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-blue-300">
+                      Live Application
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/60">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Active Demo
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white leading-snug">Experience the Live System</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Test the active deployment, role-based workflows, student/parent portals, and interface in real time.
+                  </p>
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center w-full gap-2 py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl shadow transition-all hover:shadow-blue-500/25"
+                  >
+                    <span>Launch Live Demo</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              )}
+
               <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-5">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                   Project Tech Stack

@@ -84,6 +84,17 @@ export interface IndustryItem {
   }[];
 }
 
+export interface PortfolioArchitecture {
+  pattern: string;
+  summary: string;
+  layers: {
+    name: string;
+    description: string;
+    tech: string[];
+  }[];
+  highlights: string[];
+}
+
 export interface PortfolioItem {
   id: string;
   slug: string;
@@ -98,6 +109,7 @@ export interface PortfolioItem {
   isFeatured?: boolean;
   liveUrl?: string;
   previewEmbedUrl?: string;
+  architecture?: PortfolioArchitecture;
 }
 
 export interface CaseStudyItem {

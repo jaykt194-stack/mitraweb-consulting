@@ -20,9 +20,9 @@ import {
 import LivePreviewEmbed from "@/components/ui/LivePreviewEmbed";
 
 interface PortfolioDetailProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -31,8 +31,9 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: PortfolioDetailProps): Metadata {
-  const project = portfolioData.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: PortfolioDetailProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = portfolioData.find((p) => p.slug === slug);
   if (!project) return {};
 
   return {
@@ -44,8 +45,9 @@ export function generateMetadata({ params }: PortfolioDetailProps): Metadata {
   };
 }
 
-export default function PortfolioDetailPage({ params }: PortfolioDetailProps) {
-  const project = portfolioData.find((p) => p.slug === params.slug);
+export default async function PortfolioDetailPage({ params }: PortfolioDetailProps) {
+  const { slug } = await params;
+  const project = portfolioData.find((p) => p.slug === slug);
   if (!project) notFound();
 
   return (

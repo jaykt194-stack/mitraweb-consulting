@@ -19,9 +19,9 @@ import {
 } from "lucide-react";
 
 interface CaseStudyDetailProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -30,8 +30,9 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: CaseStudyDetailProps): Metadata {
-  const study = caseStudiesData.find((s) => s.slug === params.slug);
+export async function generateMetadata({ params }: CaseStudyDetailProps): Promise<Metadata> {
+  const { slug } = await params;
+  const study = caseStudiesData.find((s) => s.slug === slug);
   if (!study) return {};
 
   return {
@@ -43,8 +44,9 @@ export function generateMetadata({ params }: CaseStudyDetailProps): Metadata {
   };
 }
 
-export default function CaseStudyDetailPage({ params }: CaseStudyDetailProps) {
-  const study = caseStudiesData.find((s) => s.slug === params.slug);
+export default async function CaseStudyDetailPage({ params }: CaseStudyDetailProps) {
+  const { slug } = await params;
+  const study = caseStudiesData.find((s) => s.slug === slug);
   if (!study) notFound();
 
   return (

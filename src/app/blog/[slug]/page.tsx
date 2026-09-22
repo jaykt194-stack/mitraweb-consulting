@@ -19,9 +19,9 @@ import {
 } from "lucide-react";
 
 interface BlogArticleProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -30,8 +30,9 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: BlogArticleProps): Metadata {
-  const post = blogData.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: BlogArticleProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogData.find((p) => p.slug === slug);
   if (!post) return {};
 
   return {
@@ -51,8 +52,9 @@ export function generateMetadata({ params }: BlogArticleProps): Metadata {
   };
 }
 
-export default function BlogArticlePage({ params }: BlogArticleProps) {
-  const post = blogData.find((p) => p.slug === params.slug);
+export default async function BlogArticlePage({ params }: BlogArticleProps) {
+  const { slug } = await params;
+  const post = blogData.find((p) => p.slug === slug);
   if (!post) notFound();
 
   const relatedPosts = blogData
